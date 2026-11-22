@@ -55,3 +55,15 @@
 ; Inserts x at the front of every list whose original length is strictly less than n.
 (define (insert-if-short x lst n)
   ((make-inserter x (lambda (k) (< k n))) lst))
+
+; (print-insert-result)
+; Reads x, lst, and n in order from standard input, computes (insert-if-short x lst n),
+; prints the resulting list with display, and ends with a newline.
+(define (print-insert-result)
+  (let* ([x (read)]
+         [lst (read)]
+         [n (read)]
+         [res (insert-if-short x lst n)])
+    (begin
+      (display res)
+      (newline))))
