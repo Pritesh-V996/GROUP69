@@ -74,3 +74,8 @@ equation_string(List, Str) :-
     expr_string(RE, RS),
     format(string(Str), "~w=~w", [LS, RS]).
 
+% generate_equation(List, Equation): Equation is one valid equation string for List;
+% fails if there is none.
+generate_equation(List, Equation) :-
+    once(equation_string(List, Equation)).
+
