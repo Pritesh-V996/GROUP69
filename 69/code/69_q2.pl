@@ -52,12 +52,29 @@ matching_pairs([LV-LE|LT], [RV-RE|RT], Pairs) :-
     ->  matching_pairs(LT, [RV-RE|RT], Pairs)
     ;   LV > RV
     ->  matching_pairs([LV-LE|LT], RT, Pairs)
-    ;   matching_pairs([LV-LE], RT, P1),
-        matching_pairs(LT, [RV-RE], P2),
-        matching_pairs(LT, RT, P3),
-        append([[LE-RE], P1, P2], Front),
-        append(Front, P3, Pairs)
+    ;   take_run(LV, [LV-LE|LT], LRun, LRest),
+        take_run(RV, [RV-RE|RT], RRun, RRest),
+        cross_pairs(LRun, RRun, RunPairs),
+        matching_pairs(LRest, RRest, RestPairs),
+        append(RunPairs, RestPairs, Pairs)
     ).
+
+% take_run(V, Pairs, Run, Rest): extracts all expressions with key V from the front
+% of the sorted list, returning the list of expressions Run and the remainder Rest.
+take_run(V, [V-E|T], [E|ET], Rest) :- !,
+    take_run(V, T, ET, Rest).
+take_run(_, Rest, [], Rest).
+
+% cross_pairs(Lefts, Rights, Pairs): Cartesian product of Lefts and Rights.
+cross_pairs([], _, []).
+cross_pairs([L|LT], Rs, Pairs) :-
+    cross_one(Rs, L, P1),
+    cross_pairs(LT, Rs, P2),
+    append(P1, P2, Pairs).
+
+cross_one([], _, []).
+cross_one([R|RT], L, [L-R|Rest]) :-
+    cross_one(RT, L, Rest).
 
 
 % equation_string(List, Str): Str is "L=R" where L is an expression over a
