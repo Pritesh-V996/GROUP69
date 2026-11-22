@@ -46,3 +46,12 @@
   (newline)
   (display (postorder-acc tree '()))
   (newline))
+
+;; tree-height : tree -> integer
+;; Returns 0 for an empty tree '(), and 1 plus the maximum height of its
+;; subtrees for a non-empty node.
+(define (tree-height tree)
+  (if (null? tree)
+      0
+      (+ 1 (max (tree-height (cadr tree))
+                (tree-height (caddr tree))))))
