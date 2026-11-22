@@ -79,3 +79,9 @@ equation_string(List, Str) :-
 generate_equation(List, Equation) :-
     once(equation_string(List, Equation)).
 
+% all_equations(List, Equations): Equations is the sorted list, without
+% duplicates, of every valid equation string for List; [] if there is none.
+all_equations(List, Equations) :-
+    findall(S, equation_string(List, S), All),
+    sort(All, Equations).
+
