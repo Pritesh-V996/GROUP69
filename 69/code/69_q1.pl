@@ -51,3 +51,9 @@ candidate([p('Alex', D1, L1, P1), p('Ben', D2, L2, P2), p('Carla', D3, L3, P3), 
     permutation([research, development, design, testing], [D1, D2, D3, D4]),
     permutation([python, java, 'c++', javascript], [L1, L2, L3, L4]),
     permutation(['AI', web, embedded, data], [P1, P2, P3, P4]).
+
+% solution(+Active, -Solution) is nondet.
+% True when Solution is a candidate assignment that satisfies every clue N in Active.
+solution(Active, Solution) :-
+    candidate(Solution),
+    forall(member(N, Active), clue(N, Solution)).
