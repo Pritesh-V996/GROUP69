@@ -19,3 +19,13 @@
                   acc
                   (len-acc (cdr rem) (+ acc 1))))])
     (len-acc lst 0)))
+
+; (my-map f lst) is tail-recursive.
+; Applies procedure f to each element of lst in order and returns the resulting list.
+(define (my-map f lst)
+  (letrec ([map-acc
+            (lambda (rem acc)
+              (if (null? rem)
+                  (my-reverse acc)
+                  (map-acc (cdr rem) (cons (f (car rem)) acc))))])
+    (map-acc lst '())))
