@@ -21,3 +21,23 @@ expr(List, bin(Op, L, R), Val) :-
     member(Op, [+, -, *, /]),
     apply_op(Op, LVal, RVal, Val).
 
+% expr_string(Expr, Str): Str is the canonical string of Expr, with no spaces.
+% A left operand gets parentheses only if its operator binds strictly weaker
+% than its parent; a right operand gets them if it binds the same or weaker.
+expr_string(num(N), Str) :-
+    format(string(Str), "~w", [N]).
+expr_string(bin(Op, L, R), Str) :-
+    expr_string(L, LS),
+    expr_string(R, RS),
+    (   memberchk(Op, [*, /]), L = bin(LOp, _, _), memberchk(LOp, [+, -])
+    ->  format(string(LP), "(~w)", [LS])
+    ;   LP = LS
+    ),
+    (   R = bin(ROp, _, _),
+        (   memberchk(Op, [*, /])
+        ;   memberchk(ROp, [+, -])
+        )
+    ->  format(string(RP), "(~w)", [RS])
+    ;   RP = RS
+    ),
+    format(string(Str), "~w~w~w", [LP, Op, RP]).
