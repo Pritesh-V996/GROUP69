@@ -45,6 +45,10 @@ clue(8, Solution) :-
     member(p(_, research, Lang, data), Solution),
     Lang \= javascript.
 
+% CLUE 9: The friend whose favorite language is Java prefers the embedded project.
+clue(9, Solution) :-
+    member(p(_, _, java, embedded), Solution).
+
 % candidate(-Solution) is nondet.
 % True when Solution is a candidate assignment of departments, languages, and projects to the four friends.
 candidate([p('Alex', D1, L1, P1), p('Ben', D2, L2, P2), p('Carla', D3, L3, P3), p('Dana', D4, L4, P4)]) :-
