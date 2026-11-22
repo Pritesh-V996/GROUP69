@@ -10,3 +10,14 @@ split_nonempty(List, Left, Right) :-
     append(Left, Right, List),
     Left = [_|_],
     Right = [_|_].
+
+% expr(List, Expr, Val): Expr is a binary expression tree over the numbers of List
+% in order, and Val is its integer value; every division inside it is exact.
+expr([N], num(N), N).
+expr(List, bin(Op, L, R), Val) :-
+    split_nonempty(List, Left, Right),
+    expr(Left, L, LVal),
+    expr(Right, R, RVal),
+    member(Op, [+, -, *, /]),
+    apply_op(Op, LVal, RVal, Val).
+
