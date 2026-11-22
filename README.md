@@ -69,3 +69,65 @@ GROUP69/
 - Higher-order function `make-inserter` returning a procedure that inserts `x` into any sublist whose original length satisfies `len-ok?`.
 - Single definition of `insert-if-short` defined through `make-inserter`.
 - Parameterless `print-insert-result` reading `x`, `lst`, `n` from stdin via `read` and printing with `display`.
+
+---
+
+### How to Run and Test
+
+#### 1. Running Problem Solutions
+
+- **Run P1 solution (`main/0`):**
+  ```bash
+  swipl -q -f 69/code/69_q1.pl -g main -t halt
+  ```
+
+- **Query P1 solution counts:**
+  ```bash
+  swipl -q -f 69/code/69_q1.pl -g "count_solutions([1,2,3,4,5,6,7,8], N), writeln(N)" -t halt
+  swipl -q -f 69/code/69_q1.pl -g "count_solutions([1,2,3,4,5,6,7,8,9], N), writeln(N)" -t halt
+  ```
+
+- **Run P2 equation generation:**
+  ```bash
+  swipl -q -f 69/code/69_q2.pl -g "generate_equation([4,2,5,3], E), writeq(E), nl" -t halt
+  swipl -q -f 69/code/69_q2.pl -g "all_equations([4,2,5,3], Es), writeq(Es), nl" -t halt
+  swipl -q -f 69/code/69_q2.pl -g "count_equations([4,2,5,3], N), writeln(N)" -t halt
+  ```
+
+- **Run S1 (Scheme Traversals):**
+  The grader appends tree definitions and calls. Example:
+  ```bash
+  racket -e '(enter! (file "69/code/69_q3.rkt")) (define t1 (quote (4 (2 (1 () ()) (3 () ())) (6 (5 () ()) (7 () ()))))) (print-inorder t1) (print-all-traversals t1) (print-height-and-leaves t1)'
+  ```
+
+- **Run S2 (Scheme Conditional Insert via stdin):**
+  Feed `x`, `lst`, `n` through stdin:
+  ```bash
+  printf "42 ((1 2) (3 4 5) (6) ()) 3\n" | racket -e '(enter! (file "69/code/69_q4.rkt")) (print-insert-result)'
+  ```
+
+---
+
+#### 2. Running the Test Suites
+
+All 4 problems have complete standalone test suites:
+
+- **Run P1 Tests (PLUnit):**
+  ```bash
+  swipl -q -f 69/tests/test_p1.pl -g run_tests -t halt
+  ```
+
+- **Run P2 Tests (PLUnit):**
+  ```bash
+  swipl -q -f 69/tests/test_p2.pl -g run_tests -t halt
+  ```
+
+- **Run S1 Tests (Racket):**
+  ```bash
+  racket 69/tests/test_s1.rkt
+  ```
+
+- **Run S2 Tests (Racket):**
+  ```bash
+  racket 69/tests/test_s2.rkt
+  ```
