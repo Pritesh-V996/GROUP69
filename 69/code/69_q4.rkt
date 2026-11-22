@@ -46,3 +46,24 @@
         (if (< k n)
             (cons x mapped)
             mapped))))
+
+; (make-inserter x len-ok?)
+; Returns a single-argument procedure taking a list and inserting x at the front
+; of every list (at all nesting levels) whose original length satisfies len-ok?.
+(define (make-inserter x len-ok?)
+  (letrec ([inserter
+            (lambda (lst)
+              (if (null? lst)
+                  (if (len-ok? 0)
+                      (cons x '())
+                      '())
+                  (let ([k (my-length lst)]
+                        [mapped (my-map (lambda (elem)
+                                          (if (or (null? elem) (pair? elem))
+                                              (inserter elem)
+                                              elem))
+                                        lst)])
+                    (if (len-ok? k)
+                        (cons x mapped)
+                        mapped))))])
+    inserter))
