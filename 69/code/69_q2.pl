@@ -43,7 +43,7 @@ expr_string(bin(Op, L, R), Str) :-
     format(string(Str), "~w~w~w", [LP, Op, RP]).
 
 
-    % matching_pairs(LeftPairs, RightPairs, Pairs): merge join of two keysorted
+% matching_pairs(LeftPairs, RightPairs, Pairs): merge join of two keysorted
 % Val-Expr lists; Pairs holds every LExpr-RExpr whose values are equal.
 matching_pairs([], _, []).
 matching_pairs([_|_], [], []).
@@ -58,3 +58,19 @@ matching_pairs([LV-LE|LT], [RV-RE|RT], Pairs) :-
         append([[LE-RE], P1, P2], Front),
         append(Front, P3, Pairs)
     ).
+
+
+% equation_string(List, Str): Str is "L=R" where L is an expression over a
+% prefix of List, R is an expression over the rest, and both have the same value.
+equation_string(List, Str) :-
+    split_nonempty(List, Left, Right),
+    findall(V-E, expr(Left, E, V), LP0),
+    findall(V-E, expr(Right, E, V), RP0),
+    keysort(LP0, LP),
+    keysort(RP0, RP),
+    matching_pairs(LP, RP, Pairs),
+    member(LE-RE, Pairs),
+    expr_string(LE, LS),
+    expr_string(RE, RS),
+    format(string(Str), "~w=~w", [LS, RS]).
+
