@@ -15,3 +15,13 @@
 (define (print-inorder tree)
   (display (inorder-acc tree '()))
   (newline))
+
+;; preorder-acc : tree list -> list
+;; Returns the pre-order list of tree values (node, left, right) followed by acc,
+;; built by consing onto acc without append or reverse.
+(define (preorder-acc tree acc)
+  (if (null? tree)
+      acc
+      (cons (car tree)
+            (preorder-acc (cadr tree)
+                          (preorder-acc (caddr tree) acc)))))
