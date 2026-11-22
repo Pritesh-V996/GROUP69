@@ -58,6 +58,12 @@ solution(Active, Solution) :-
     candidate(Solution),
     forall(member(N, Active), clue(N, Solution)).
 
+% count_solutions(+Active, -N) is det.
+% True when N is the number of solutions satisfying all clues in Active.
+count_solutions(Active, N) :-
+    findall(Solution, solution(Active, Solution), Solutions),
+    length(Solutions, N).
+
 % main is det.
 % Finds the first solution for active clues 1-8 and prints each assignment.
 main :-
