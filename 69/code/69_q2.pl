@@ -41,3 +41,20 @@ expr_string(bin(Op, L, R), Str) :-
     ;   RP = RS
     ),
     format(string(Str), "~w~w~w", [LP, Op, RP]).
+
+
+    % matching_pairs(LeftPairs, RightPairs, Pairs): merge join of two keysorted
+% Val-Expr lists; Pairs holds every LExpr-RExpr whose values are equal.
+matching_pairs([], _, []).
+matching_pairs([_|_], [], []).
+matching_pairs([LV-LE|LT], [RV-RE|RT], Pairs) :-
+    (   LV < RV
+    ->  matching_pairs(LT, [RV-RE|RT], Pairs)
+    ;   LV > RV
+    ->  matching_pairs([LV-LE|LT], RT, Pairs)
+    ;   matching_pairs([LV-LE], RT, P1),
+        matching_pairs(LT, [RV-RE], P2),
+        matching_pairs(LT, RT, P3),
+        append([[LE-RE], P1, P2], Front),
+        append(Front, P3, Pairs)
+    ).
