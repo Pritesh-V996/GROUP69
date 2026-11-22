@@ -34,3 +34,38 @@ GROUP69/
 │   └── P1_REPORT.md       # Solution count analysis & Clue 9 documentation
 └── README.md
 ```
+
+---
+
+### What is in this Project
+
+#### P1: Department Assignment Puzzle (`69/code/69_q1.pl`)
+- Assigns 4 friends (Alex, Ben, Carla, Dana) to unique departments, languages, and projects using permutation logic.
+- Implements `clue/2` for clues 1 through 8.
+- Implements `candidate/1` generating 13,824 permutations.
+- Implements `count_solutions/2` (demonstrating $N = 3$ for clues 1–8).
+- Implements `clue(9, Solution)` without mentioning any friend by name, narrowing the solutions down to $N = 1$.
+- Implements `main/0` printing the unique assignments formatted with unquoted atoms.
+- Report in `69/P1_REPORT.md` explaining the search space and Clue 9.
+
+#### P2: Valid Arithmetic Equations (`69/code/69_q2.pl`)
+- Takes a list of non-negative integers and inserts operators (`+`, `-`, `*`, `/`) and `=` so both sides evaluate to the same value.
+- Exact integer division enforced at every node (`//` with `mod =:= 0`).
+- Generates ASTs with `num/1` and `bin/3` terms, evaluated directly (no string parsing).
+- Canonical parenthesization implemented in `expr_string/2` (left-associative, strict precedence).
+- Keysorted merge-join implemented in `matching_pairs/3` for fast $O(L+R)$ pairing.
+- Implements `generate_equation/2`, `all_equations/2`, and `count_equations/2`.
+
+#### S1: Binary Tree Traversals & Metrics (`69/code/69_q3.rkt`)
+- `#lang racket/base` with zero forbidden built-ins.
+- Implements `print-inorder` using accumulator `inorder-acc`.
+- Implements `print-all-traversals` (inorder, preorder, postorder) using tail accumulators.
+- Implements `print-height-and-leaves` computing height (using `max`) and leaf counts.
+- Ends with `(newline)` so functions return `(void)`.
+
+#### S2: Nested List Modification (`69/code/69_q4.rkt`)
+- `#lang racket/base` using only allowed built-ins.
+- Hand-written tail-recursive `my-reverse`, `my-length`, and `my-map` using accumulators.
+- Higher-order function `make-inserter` returning a procedure that inserts `x` into any sublist whose original length satisfies `len-ok?`.
+- Single definition of `insert-if-short` defined through `make-inserter`.
+- Parameterless `print-insert-result` reading `x`, `lst`, `n` from stdin via `read` and printing with `display`.
