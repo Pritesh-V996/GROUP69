@@ -35,3 +35,14 @@
       (postorder-acc (cadr tree)
                      (postorder-acc (caddr tree)
                                     (cons (car tree) acc)))))
+
+;; print-all-traversals : tree -> void
+;; Prints three lines containing the in-order, pre-order, and post-order
+;; traversals of tree, each ending with a newline.
+(define (print-all-traversals tree)
+  (display (inorder-acc tree '()))
+  (newline)
+  (display (preorder-acc tree '()))
+  (newline)
+  (display (postorder-acc tree '()))
+  (newline))
