@@ -30,23 +30,6 @@
                   (map-acc (cdr rem) (cons (f (car rem)) acc))))])
     (map-acc lst '())))
 
-; (insert-if-short x lst n)
-; At every level of nesting, inserts x at the front of every list whose original length is strictly less than n.
-(define (insert-if-short x lst n)
-  (if (null? lst)
-      (if (< 0 n)
-          (cons x '())
-          '())
-      (let ([k (my-length lst)]
-            [mapped (my-map (lambda (elem)
-                              (if (or (null? elem) (pair? elem))
-                                  (insert-if-short x elem n)
-                                  elem))
-                            lst)])
-        (if (< k n)
-            (cons x mapped)
-            mapped))))
-
 ; (make-inserter x len-ok?)
 ; Returns a single-argument procedure taking a list and inserting x at the front
 ; of every list (at all nesting levels) whose original length satisfies len-ok?.
@@ -67,3 +50,8 @@
                         (cons x mapped)
                         mapped))))])
     inserter))
+
+; (insert-if-short x lst n)
+; Inserts x at the front of every list whose original length is strictly less than n.
+(define (insert-if-short x lst n)
+  ((make-inserter x (lambda (k) (< k n))) lst))
