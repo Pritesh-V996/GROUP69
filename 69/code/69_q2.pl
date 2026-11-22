@@ -4,3 +4,9 @@ apply_op(+, A, B, V) :- V is A + B.
 apply_op(-, A, B, V) :- V is A - B.
 apply_op(*, A, B, V) :- V is A * B.
 apply_op(/, A, B, V) :- B =\= 0, A mod B =:= 0, V is A // B.
+
+% split_nonempty(List, Left, Right): List is Left followed by Right, both non-empty.
+split_nonempty(List, Left, Right) :-
+    append(Left, Right, List),
+    Left = [_|_],
+    Right = [_|_].
