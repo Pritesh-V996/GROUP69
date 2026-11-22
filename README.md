@@ -2,7 +2,7 @@
 ## Group 69
 
 ### Team Members
-- **Member A (`2024A7PS0010H`)**: Problem P1, Problem S1, Prolog skill
+- **Member A (`2024A7PS0010H` / Atharv)**: Problem P1, Problem S1, Prolog skill
 - **Member B (`2024A7PS0067H` / Avtrit)**: Problem S2, Scheme skill, P2 Review
 - **Member C (`2024A7PS0165H` / Pritesh)**: Problem P2, Repository scaffold
 
