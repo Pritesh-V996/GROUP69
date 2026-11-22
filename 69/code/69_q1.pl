@@ -57,3 +57,10 @@ candidate([p('Alex', D1, L1, P1), p('Ben', D2, L2, P2), p('Carla', D3, L3, P3), 
 solution(Active, Solution) :-
     candidate(Solution),
     forall(member(N, Active), clue(N, Solution)).
+
+% main is det.
+% Finds the first solution for active clues 1-8 and prints each assignment.
+main :-
+    once(solution([1, 2, 3, 4, 5, 6, 7, 8], Solution)),
+    forall(member(p(Name, Dept, Lang, Project), Solution),
+           format('~w = [~w, ~w, ~w]~n', [Name, Dept, Lang, Project])).
