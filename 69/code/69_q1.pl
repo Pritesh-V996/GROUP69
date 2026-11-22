@@ -69,8 +69,8 @@ count_solutions(Active, N) :-
     length(Solutions, N).
 
 % main is det.
-% Finds the first solution for active clues 1-8 and prints each assignment.
+% Finds the solution for active clues 1-9 and prints each assignment.
 main :-
-    once(solution([1, 2, 3, 4, 5, 6, 7, 8], Solution)),
+    once(solution([1, 2, 3, 4, 5, 6, 7, 8, 9], Solution)),
     forall(member(p(Name, Dept, Lang, Project), Solution),
            format('~w = [~w, ~w, ~w]~n', [Name, Dept, Lang, Project])).
